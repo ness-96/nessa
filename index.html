@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>글로벌한국학연구소</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --primary: #1f3c88;
+      --primary-dark: #17306d;
+      --secondary: #2f4f9c;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --line: #dfe6f3;
+      --text: #1f2937;
+      --muted: #667085;
+      --soft: #eef3fb;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      color: #fff;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero {
+      min-height: 330px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-color: var(--primary);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /* 
+      [배경 이미지 넣는 방법]
+      아래 .hero에 background-image를 추가하면 됩니다.
+      예:
+      .hero {
+        background-image:
+          linear-gradient(rgba(20,40,90,0.68), rgba(20,40,90,0.78)),
+          url('images/main-hero.jpg');
+      }
+
+      이미지를 넣지 않으면 현재처럼 솔리드 컬러 배경으로 표시됩니다.
+    */
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(18, 38, 88, 0.28), rgba(18, 38, 88, 0.45));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 56px 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 740px;
+      font-size: 1.02rem;
+      opacity: 0.96;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .intro-box {
+      margin-top: -34px;
+      position: relative;
+      z-index: 2;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+      border-radius: 18px;
+      padding: 22px 22px;
+    }
+
+    .intro-box h2 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+
+    .intro-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 22px 20px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #c7d6f2;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.10);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+      color: var(--primary);
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #475467;
+      font-size: 0.96rem;
+    }
+
+    .section {
+      display: none;
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px 24px 30px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+      margin-top: 28px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-header {
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      margin: 0 0 10px;
+      font-size: 1.55rem;
+      color: var(--primary);
+      border-bottom: 2px solid #e7edf8;
+      padding-bottom: 10px;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .btn-row {
+      margin-bottom: 16px;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s ease;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .sub-block {
+      margin-bottom: 26px;
+    }
+
+    .sub-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .sub-block h3 {
+      margin: 0 0 10px;
+      color: var(--secondary);
+      font-size: 1.08rem;
+    }
+
+    .sub-block p,
+    .sub-block li,
+    .regulation-text,
+    .notice-item p {
+      color: #344054;
+    }
+
+    .sub-block p {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .highlight-box {
+      background: var(--soft);
+      border: 1px solid #dbe7fb;
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin: 14px 0 22px;
+    }
+
+    .highlight-box strong {
+      color: var(--primary);
+    }
+
+    .image-banner {
+      width: 100%;
+      min-height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background-color: #dce6f7;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: flex-end;
+      margin: 10px 0 22px;
+      position: relative;
+    }
+
+    .image-banner.small {
+      min-height: 170px;
+    }
+
+    /*
+      [서브 배너 이미지 넣는 방법]
+      아래 div.image-banner 에 style 속성으로 background-image를 넣으면 됩니다.
+      예:
+      <div class="image-banner" style="background-image: url('images/about-banner.jpg');">
+        ...
+      </div>
+
+      이미지를 지정하지 않으면 기본 배경색만 표시됩니다.
+    */
+
+    .image-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20, 40, 90, 0.45), rgba(20, 40, 90, 0.08));
+    }
+
+    .image-banner .caption {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      padding: 18px 18px;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    .org-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.96rem;
+    }
+
+    th {
+      background: #f7faff;
+      color: var(--primary);
+      width: 24%;
+      font-weight: 700;
+    }
+
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .regulation-meta {
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f7faff;
+      border: 1px solid #dfe8fa;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .regulation-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .regulation-index a {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #d8e3f7;
+      background: #f8fbff;
+      color: var(--primary);
+      font-size: 0.92rem;
+    }
+
+    .regulation-index a:hover {
+      background: #eef4ff;
+    }
+
+    .regulation-block {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+
+    .regulation-block h3 {
+      margin: 0 0 10px;
+      color: var(--secondary);
+      font-size: 1.06rem;
+    }
+
+    .regulation-text {
+      white-space: pre-line;
+      margin: 0;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .link-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 16px;
+      background: #fff;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .link-card h4 {
+      margin: 0 0 6px;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .link-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .notice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .notice-panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 16px;
+      background: #fff;
+    }
+
+    .notice-panel h3 {
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: 1.05rem;
+    }
+
+    .notice-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .notice-item {
+      border-top: 1px solid #edf2f8;
+      padding-top: 12px;
+    }
+
+    .notice-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .notice-item .meta {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .notice-item strong {
+      display: block;
+      color: #243b7a;
+      margin-bottom: 4px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .gallery-slot {
+      min-height: 130px;
+      border-radius: 14px;
+      border: 1px dashed #c8d5ea;
+      background: #eef3fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #64748b;
+      padding: 14px;
+      font-size: 0.92rem;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /*
+      [포토갤러리 이미지 넣는 방법]
+      아래 .gallery-slot에 style="background-image:url('images/photo1.jpg'); color:transparent;"
+      같은 방식으로 넣으면 됩니다.
+      이미지가 없으면 현재 안내문과 배경색이 보입니다.
+    */
+
+    .map-wrap {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .map-frame {
+      min-height: 320px;
+      background: #e8eef8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5b6b84;
+      text-align: center;
+      padding: 16px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    /*
+      [지도 이미지 넣는 방법]
+      1) 현재 업로드한 캠퍼스 지도를 사용할 경우, 파일명을 같은 폴더 기준으로 맞춘 뒤
+         아래 div.map-frame에 background-image를 지정합니다.
+      2) 예:
+         <div class="map-frame" style="background-image:url('campus-map.png'); color:transparent;">
+      3) 이미지를 넣지 않으면 기본 솔리드 컬러와 안내 문구가 표시됩니다.
+    */
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 28px 20px 50px;
+    }
+
+    @media (max-width: 860px) {
+      .notice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 22px 14px 48px;
+      }
+
+      .hero {
+        min-height: 280px;
+      }
+
+      .hero-inner {
+        padding: 44px 16px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .intro-box,
+      .section,
+      .card {
+        padding: 18px 16px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>글로벌한국학연구소</h1>
+        <p>
+          한국학의 국제적 확산과 학술적 발전을 도모하며, 한국어·한국문학·한국문화 전반의 연구와
+          학술 교류를 추진하는 연구 거점입니다.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section id="home">
+      <div class="intro-box">
+        <h2>연구소 홈페이지</h2>
+        <p>아래 메뉴를 클릭하면 각 영역의 내용을 볼 수 있습니다. 현재 구조는 연구소 공식 메뉴 구성을 기준으로 정리한 버전입니다.</p>
+      </div>
+
+      <div class="home-grid">
+        <div class="card" onclick="showSection('page-about')">
+          <h3>연구소 소개</h3>
+          <ul>
+            <li>연구소장 인사말</li>
+            <li>연구소 연혁</li>
+            <li>연구소 조직</li>
+            <li>연구소 규정</li>
+            <li>오시는 길</li>
+          </ul>
+        </div>
+
+        <div class="card" onclick="showSection('page-activity')">
+          <h3>연구소 활동</h3>
+          <ul>
+            <li>국내 학술대회</li>
+            <li>국제 학술대회</li>
+            <li>심포지엄</li>
+            <li>단행본 출간</li>
+          </ul>
+        </div>
+
+        <div class="card" onclick="showSection('page-journal')">
+          <h3>학술지</h3>
+          <ul>
+            <li>글로벌한국학연구 소개</li>
+            <li>편집위원</li>
+            <li>투고 안내</li>
+            <li>연구윤리규정</li>
+            <li>원문 보기</li>
+          </ul>
+        </div>
+
+        <div class="card" onclick="showSection('page-archive')">
+          <h3>규정 자료실</h3>
+          <ul>
+            <li>연구소 규정</li>
+            <li>운영 관련 문서</li>
+            <li>다운로드 자료</li>
+          </ul>
+        </div>
+
+        <div class="card" onclick="showSection('page-notice')">
+          <h3>공지사항</h3>
+          <ul>
+            <li>공지사항</li>
+            <li>언론보도</li>
+            <li>포토갤러리</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-about" class="section">
+      <div class="btn-row">
+        <button onclick="goHome()">← 메인으로</button>
+      </div>
+
+      <div class="section-header">
+        <h2>연구소 소개</h2>
+        <p>연구소의 비전, 연혁, 조직, 규정, 위치 정보를 안내합니다.</p>
+      </div>
+
+      <div class="image-banner">
+        <div class="caption">이 영역은 연구소 대표 이미지, 건물 사진, 행사 사진 등을 배치하는 배너 공간입니다.</div>
+      </div>
+
+      <div class="sub-block">
+        <h3>연구소장 인사말</h3>
+        <div class="highlight-box">
+          <strong>“중앙대학교 글로벌한국학연구소에 오신 것을 환영합니다.”</strong>
+        </div>
+        <p><strong>연구소장 이경수</strong></p>
+        <p>안녕하십니까? 중앙대학교 글로벌한국학연구소는 한국학에 대한 세계적 관심과 열기에 적극 대응하며 한국학의 국제적인 허브 역할을 수행하기 위해 2025년 12월 30일에 설립되었습니다. 한국어교육의 체계적 연구, 한국문학의 세계화 전략, 글로벌 문화와 K-Culture 연구, 한국학의 세계적 확산과 학술적 발전을 목표로 한국학의 기반을 다지고 다양한 도전과 모색을 통해 세계적인 연구소로 발전해 나가도록 힘써 보겠습니다.
+
+글로벌한국학연구소는 중앙대학교 산하 연구소로 출발하지만 한국학의 전 분야, 더 나아가 글로벌 한국학의 현재와 미래를 책임지는 국제적 허브로 성장해 나가고자 합니다. 그동안 쌓은 학문적 기반을 토대로 국내외 학술 교류 및 세미나, 국제학술대회와 국내학술대회 개최, 학술지 『글로벌한국학연구』 창간 및 KCI, SCOPUS 등재 추진, 산학연 네트워크 구축 및 공동연구 수행, 연구 프로젝트 유치 및 사업수행 지원, 한국학의 국제적 담론 형성을 통해 한국학의 대중화와 세계화, 한국학의 학문적 위상 강화에 기여하고자 합니다.
+
+글로벌한국학연구소의 출발을 관심과 애정을 가지고 지켜봐 주시고 연구소의 여러 사업과 활동에 적극 참여해 주시기 바랍니다. 감사합니다.</p>
+      </div>
+
+      <div class="sub-block">
+        <h3>연구소 연혁</h3>
+        <p>2025년 12월 30일 글로벌한국학연구소 설립</p>
+      </div>
+
+      <div class="sub-block">
+        <h3>연구소 조직</h3>
+        <div class="org-table-wrap">
+          <table>
+            <tbody>
+              <tr>
+                <th>구분</th>
+                <td>직책 / 구성</td>
+              </tr>
+              <tr>
+                <th>연구소장</th>
+                <td>이경수</td>
+              </tr>
+              <tr>
+                <th>연구위원</th>
+                <td>이찬규, 양명희, 박환영, 이명현, 서세림, 김성문, 신성환, 임현열</td>
+              </tr>
+              <tr>
+                <th>비고</th>
+                <td>향후 세부 직제 및 위원회 구성은 추가 확정 사항에 따라 보완 가능</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-block">
+        <h3>연구소 규정</h3>
+        <div class="regulation-meta">2025. 09. 05. 제정</div>
+
+        <div class="regulation-index">
+          <a href="#reg-1">제1장 총칙</a>
+          <a href="#reg-2">제2장 조직 및 임원</a>
+          <a href="#reg-3">제3장 구성원</a>
+          <a href="#reg-4">제4장 위원회</a>
+          <a href="#reg-5">제5장 재정</a>
+          <a href="#reg-6">제6장 해산</a>
+          <a href="#reg-7">제7장 보칙</a>
+          <a href="#reg-supp">부칙</a>
+        </div>
+
+        <div id="reg-1" class="regulation-block">
+          <h3>제1장 총칙</h3>
+          <p class="regulation-text">제1조(명칭) 본 연구소의 명칭은 중앙대학교 부설 글로벌한국학연구소(이하 “연구소”라 함)라 한다.
+제2조(목적) 이 내규는 본 연구소의 조직과 운영에 관한 제반 사항을 정함을 목적으로 한다.
+
+제3조(사업) 본 연구소는 연구와 개발을 수행할 목적으로 다음 각 호의 사업을 수행한다.
+1. 한국어문학과 한국문화 전반에 관한 학문의 학술적 이론과 실증적 연구 수행
+2. 국내·외 연구 기관과의 학술 교류
+3. 학술대회, 콜로키움, 세미나 개최
+4. 전문학술지 및 총서 발간
+5. 산학, 관학 협력 연구
+6. 본 연구소의 목적 달성에 필요한 기타 사업</p>
+        </div>
+
+        <div id="reg-2" class="regulation-block">
+          <h3>제2장 조직 및 임원</h3>
+          <p class="regulation-text">제4조(조직) 연구소에는 사업 수행을 위하여 다음 각 호의 조직기구를 둔다.
+1. 총회
+2. 운영위원회
+3. 연구위원회
+4. 편집위원회
+5. 연구윤리위원회
+
+제5조(임원)
+① 연구소에 소장 1명, 부소장 1명, 운영위원장 1명, 연구위원장 1명, 편집위원장 1명, 연구윤리위원장 1명을 둔다.
+② 소장은 운영위원회의 추천에 따라 연구처장을 경유하여 총장이 임명한다.
+③ 부소장은 운영위원회의 추천에 따라 소장이 임명하며, 소장 유고 시 그 임무를 대행한다.
+④ 감사는 연구위원 중 운영위원회의 선임을 거쳐 연구소장이 임명한다.
+⑤ 임원의 임기는 2년으로 하되 연임할 수 있다.</p>
+        </div>
+
+        <div id="reg-3" class="regulation-block">
+          <h3>제3장 구성원</h3>
+          <p class="regulation-text">제6조(구성원)
+① 연구소에 연구위원, 선임연구원, 연구원, 객원연구위원을 둘 수 있다. 연구위원은 학문단위 소속 전임교원으로 한다.
+② 연구소 운영 및 관리에 관한 사항은 「부설연구소 연구원 운영에 관한 시행세칙」이 정하는 바에 따른다.</p>
+        </div>
+
+        <div id="reg-4" class="regulation-block">
+          <h3>제4장 위원회</h3>
+          <p class="regulation-text">제7조(운영위원회)
+① 연구소의 운영에 관한 중요사항을 심의하기 위하여 운영위원회를 둔다.
+② 운영위원회는 연구위원으로 구성하며, 연구소장이 위원장이 된다.
+③ 운영위원회는 다음 각 호의 사항을 심의한다.
+1. 예산 및 결산
+2. 연구소 발전계획 및 장기연구계획의 수립
+3. 제 규정의 제정 및 개정에 관한 사항
+4. 연구과제의 선정 및 평가
+5. 기타 연구소 운영에 필요한 중요사항
+④ 운영위원회는 운영위원 4인 이상이 요구할 때 또는 소장이 필요하다고 판단할 때 소집한다.
+⑤ 운영위원회는 운영위원 과반수 출석으로 개회하고, 출석위원 과반수 찬성으로 의결한다.
+
+제8조(연구위원회)
+① 연구소에서 개최하는 학술 행사 및 외부 과제 수주 등에 관한 제반 사항을 추진하고 심의하기 위하여 연구위원회를 둔다.
+② 연구위원회는 소장이 위촉하는 위원장 1인을 포함한 4인 내외의 위원으로 구성한다.
+③ 연구위원은 연구위원장의 추천을 받아 소장이 임명한다.
+④ 위원장과 위원의 임기는 2년이며 연임할 수 있다.
+
+제9조(편집위원회)
+① 연구소의 학술지 등 학술 연구 활동에 관련된 각종 간행물에 관한 사항을 심의하기 위하여 편집위원회를 둔다.
+② 편집위원회는 소장이 위촉하는 위원장 1인을 포함한 8인 내외의 위원으로 구성한다.
+③ 편집위원은 편집위원장의 추천을 받아 소장이 임명한다.
+④ 위원장과 위원의 임기는 2년이며 연임할 수 있다.
+
+제10조(연구윤리위원회)
+① 연구수행 중 발생할 수 있는 연구윤리 관련 제반 사항을 조사 · 심의하기 위하여 연구윤리위원회를 둔다.
+② 연구윤리위원회는 소장이 위촉하는 위원장 1인을 포함한 8인 내외의 위원으로 구성된다.
+③ 연구윤리위원은 연구윤리위원장의 추천을 받아 소장이 임명한다.
+④ 연구윤리위원회의 업무를 비롯한 연구윤리에 관한 사항은 소장이 따로 정한다.</p>
+        </div>
+
+        <div id="reg-5" class="regulation-block">
+          <h3>제5장 재정</h3>
+          <p class="regulation-text">제11조(재정) 연구소의 운영경비는 기탁연구지원비, 사업수익금 및 기타 기부금, 교비보조금 등으로 충당한다.</p>
+        </div>
+
+        <div id="reg-6" class="regulation-block">
+          <h3>제6장 해산</h3>
+          <p class="regulation-text">제12조(해산) 본 연구소가 해산될 경우 그 재산은 본교에 귀속시킨다.</p>
+        </div>
+
+        <div id="reg-7" class="regulation-block">
+          <h3>제7장 보칙</h3>
+          <p class="regulation-text">제13조(기타) 이 규정에 명시되지 아니한 사항은 「부설연구소 설치 및 운영에 관한 규정」이 정하는 바에 따른다.</p>
+        </div>
+
+        <div id="reg-supp" class="regulation-block">
+          <h3>부 칙</h3>
+          <p class="regulation-text">(시행일) 이 규정은 2025년 09월 05일부터 시행한다.</p>
+        </div>
+      </div>
+
+      <div class="sub-block">
+        <h3>오시는 길</h3>
+        <p>서울시 동작구 흑석로 84 중앙대학교 국어국문학과(203관 835호)</p>
+        <div class="map-wrap">
+          <div class="map-frame">
+            지도 이미지 또는 약도를 이 영역에 배치할 수 있습니다.<br>
+            현재는 공간만 확보한 상태입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-activity" class="section">
+      <div class="btn-row">
+        <button onclick="goHome()">← 메인으로</button>
+      </div>
+
+      <div class="section-header">
+        <h2>연구소 활동</h2>
+        <p>국내외 학술 교류와 연구 성과 확산을 위한 주요 활동 영역입니다.</p>
+      </div>
+
+      <div class="image-banner small">
+        <div class="caption">학술대회, 심포지엄, 간행물 표지, 행사 현장 사진 등을 넣을 수 있는 공간입니다.</div>
+      </div>
+
+      <div class="sub-block">
+        <h3>국내 학술대회</h3>
+        <p>국내 학술대회 개최 및 참여 현황을 정리하는 영역입니다. 향후 행사명, 일시, 장소, 발표 주제 등을 추가해 관리할 수 있습니다.</p>
+      </div>
+
+      <div class="sub-block">
+        <h3>국제 학술대회</h3>
+        <p>국제 학술대회, 해외 학술 교류, 공동 세미나 등의 이력을 정리하는 영역입니다.</p>
+      </div>
+
+      <div class="sub-block">
+        <h3>심포지엄</h3>
+        <p>주제별 심포지엄 및 특별 세미나 개최 이력을 정리하는 영역입니다.</p>
+      </div>
+
+      <div class="sub-block">
+        <h3>단행본 출간</h3>
+        <p>연구소 총서, 공동 저술, 번역서, 단행본 출간 실적을 정리하는 영역입니다.</p>
+      </div>
+    </section>
+
+    <section id="page-journal" class="section">
+      <div class="btn-row">
+        <button onclick="goHome()">← 메인으로</button>
+      </div>
+
+      <div class="section-header">
+        <h2>학술지</h2>
+        <p>『글로벌한국학연구』 관련 정보를 정리하는 공간입니다.</p>
+      </div>
+
+      <div class="link-list">
+        <div class="link-card">
+          <h4>글로벌한국학연구 소개</h4>
+          <p>학술지의 취지, 발간 목적, 연구 분야, 발행 주기 등을 안내하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>편집위원</h4>
+          <p>편집위원회 구성, 편집 책임 체계, 위원 명단을 정리하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>투고 안내</h4>
+          <p>원고 작성 방식, 제출 절차, 심사 방식, 일정 등을 정리하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>연구윤리규정</h4>
+          <p>학술지 차원의 연구윤리 및 출판윤리 기준을 정리하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>원문 보기</h4>
+          <p>학술지 원문 PDF 또는 외부 아카이브 링크를 연결할 수 있는 영역입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-archive" class="section">
+      <div class="btn-row">
+        <button onclick="goHome()">← 메인으로</button>
+      </div>
+
+      <div class="section-header">
+        <h2>규정 자료실</h2>
+        <p>운영 관련 규정, 양식, 다운로드 자료를 정리하는 공간입니다.</p>
+      </div>
+
+      <div class="link-list">
+        <div class="link-card">
+          <h4>연구소 규정</h4>
+          <p>연구소 규정 원문 PDF 또는 별도 문서 링크를 연결하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>운영 관련 문서</h4>
+          <p>운영위원회 내규, 회의록 양식, 공문 양식 등 내부 운영 문서를 정리하는 영역입니다.</p>
+        </div>
+
+        <div class="link-card">
+          <h4>다운로드 자료</h4>
+          <p>신청서, 서식, 안내문 등 사용자 다운로드 자료를 올리는 영역입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-notice" class="section">
+      <div class="btn-row">
+        <button onclick="goHome()">← 메인으로</button>
+      </div>
+
+      <div class="section-header">
+        <h2>공지사항</h2>
+        <p>정적 구조를 유지하면서도, 관리자가 HTML 항목만 추가하여 계속 갱신할 수 있도록 설계한 영역입니다.</p>
+      </div>
+
+      <div class="notice-grid">
+        <div class="notice-panel">
+          <h3>공지사항</h3>
+          <div class="notice-list">
+            <!-- 공지사항 항목 추가 예시
+            <div class="notice-item">
+              <span class="meta">2026.03.10</span>
+              <strong>제목을 입력합니다</strong>
+              <p>간단한 설명 또는 요약을 입력합니다.</p>
+            </div>
+            -->
+            <div class="notice-item">
+              <span class="meta">YYYY.MM.DD</span>
+              <strong>공지 제목 입력</strong>
+              <p>여기에 공지사항 요약을 적으면 됩니다.</p>
+            </div>
+            <div class="notice-item">
+              <span class="meta">YYYY.MM.DD</span>
+              <strong>공지 제목 입력</strong>
+              <p>새 공지를 추가할 때는 위 notice-item 블록을 복사해 붙여 넣으면 됩니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-panel">
+          <h3>언론보도</h3>
+          <div class="notice-list">
+            <!-- 언론보도 항목 추가 예시
+            <div class="notice-item">
+              <span class="meta">2026.03.10 / 언론사명</span>
+              <strong>기사 제목</strong>
+              <p>기사 설명 또는 링크 안내 문구</p>
+            </div>
+            -->
+            <div class="notice-item">
+              <span class="meta">YYYY.MM.DD / 매체명</span>
+              <strong>기사 제목 입력</strong>
+              <p>여기에 보도 내용 요약이나 링크 안내를 적으면 됩니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-block" style="margin-top:18px;">
+        <h3>포토갤러리</h3>
+        <div class="gallery-grid">
+          <div class="gallery-slot">사진 1<br>이미지 미삽입 상태</div>
+          <div class="gallery-slot">사진 2<br>이미지 미삽입 상태</div>
+          <div class="gallery-slot">사진 3<br>이미지 미삽입 상태</div>
+          <div class="gallery-slot">사진 4<br>이미지 미삽입 상태</div>
+          <div class="gallery-slot">사진 5<br>이미지 미삽입 상태</div>
+          <div class="gallery-slot">사진 6<br>이미지 미삽입 상태</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    © 글로벌한국학연구소
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.getElementById('home').style.display = 'none';
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goHome() {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById('home').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
